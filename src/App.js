@@ -1,25 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+import '../node_modules/antd/dist/antd.min.js';  // This should be the correct file for styling.
+import React from "react";
+import "antd/dist/reset.css"; // Ant Design CSS
+import DashboardPage from "./pages/DashboardPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  return <DashboardPage />;
+};
 
 export default App;

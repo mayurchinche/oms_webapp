@@ -1,3 +1,5 @@
+import '../node_modules/antd/dist/antd.min.js';  // This should be the correct file for styling.
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';

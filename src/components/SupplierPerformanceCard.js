@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Statistic, DatePicker } from "antd";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import moment from "moment";
 import { getSupplierPerformance } from "../services/api";
-
+import { useCallback } from "react";
 const { RangePicker } = DatePicker;
 
 const SupplierPerformanceCard = () => {
@@ -13,25 +12,32 @@ const SupplierPerformanceCard = () => {
     average_delivery_time_by_supplier: [],
   });
 
+  
   // Fetch Supplier Performance Data
-  const fetchSupplierPerformance = async () => {
+  const fetchSupplierPerformance = useCallback(async () => {
     if (supplierDateRange.length === 2) {
-      const [startDate, endDate] = supplierDateRange.map((date) => date.format("DD-MM-YYYY"));
-
+      const [startDate, endDate] = supplierDateRange.map((date) =>
+        date.format("DD-MM-YYYY")
+      );
+  
       try {
-        const supplierPerformanceData = await getSupplierPerformance(startDate, endDate);
-
+        const supplierPerformanceData = await getSupplierPerformance(
+          startDate,
+          endDate
+        );
+  
         setSupplierData(supplierPerformanceData);
       } catch (error) {
         console.error("Failed to fetch supplier performance data", error);
       }
     }
-  };
-
+  }, [supplierDateRange]); // Only include supplierDateRange
+  
   useEffect(() => {
     fetchSupplierPerformance();
-  }, [supplierDateRange]);
-
+  }, [fetchSupplierPerformance]);
+  
+  
   return (
     <Card title="Supplier Performance" style={{ marginTop: "20px" }}>
       <Row gutter={16} style={{ marginBottom: "20px" }}>
